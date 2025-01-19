@@ -33,7 +33,7 @@ def route(Team_Agent: Dict[str,str] , Ticket: str):
     )  
 
     reponse_maitre= agent_maitre.run_sync(Ticket)
-    Choix_agent= reponse_maitre.data.Choix.strip().strip('"')
+    Choix_agent= reponse_maitre.data.Choix.strip('"')
     Explication = reponse_maitre.data.Explication
     Ressenti_User= reponse_maitre.data.Ressenti
 
