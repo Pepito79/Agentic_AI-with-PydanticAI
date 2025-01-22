@@ -20,7 +20,7 @@ def scrapper_liens(query: str, max_liens: int):
     return liens
 
 if __name__ == "__main__":
-    liens = scrapper_liens("Bitcoin")
+    liens = scrapper_liens("Bitcoin news today")
     print("Liens extraits :", liens)
 
 
