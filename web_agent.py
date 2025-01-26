@@ -17,15 +17,13 @@ load_dotenv()
 api=os.getenv('SCRAPPER_API_KEY')
 modele='gemini-1.5-flash'
 
-
-
-
 class Resultat_Web(BaseModel):
     resume: List[str] = Field(...,description='Résume chaque lien que tu lis')
     nombre_liens: int = Field(...,ge=6,description='Le nombre de liens que tu as visités, il faut visiter au moins 6 liens')
     final_resume: str = Field(...,description='Résumé de tous les liens que tu as visités')
     sentiment: str = Field(...,description='Sentiment concernant le prix de la crypto et ton avis si ca va augmenter avec un pourcentage de réussite')
 
+#L'agent web qui va effectuer des recherches sur la crypto en question 
 web_agent=Agent(
     modele,
     result_type=Resultat_Web,
@@ -60,11 +58,12 @@ def scrapper_liens(query: str, max_liens: int):
         liens.append(articles['link'])
     return liens
 
-def main(sujet:str):
+def main():
+    sujet = input ("> Quel thème veux tu scrapper mon caramel : ")
     resultat= web_agent.run_sync(sujet).data
     res_dict=resultat.model_dump()
     for key in res_dict:
         print(f'{key} : {res_dict[key]} \n')
 
 if __name__ == "__main__":
-    main("I'm looking for bitcoin news of today")
+    main()
